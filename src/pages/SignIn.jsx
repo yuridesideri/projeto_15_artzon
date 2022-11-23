@@ -14,7 +14,7 @@ export default function SignIn(props){
             {value : email},
             {value : password}
         ] = e.target;
-        axios.post(API_URL + '/', {email, password})
+        axios.post(API_URL + '/sign-in', {email, password})
         .then(({data: token}) => {
             sessionStorage.setItem('token', token);
             navigate('/');
@@ -26,7 +26,7 @@ export default function SignIn(props){
     }
 
     return (
-        <StyledLogIn>
+        <StyledSignIn>
             <div className="middle-container">
                 <img className="title" src={Logo}></img>
                 <form onSubmit={handleSubmit}>
@@ -40,11 +40,11 @@ export default function SignIn(props){
                     <p onClick={() => navigate('/SignUp')} >Or, you can Sign Up</p>
                 </div>
             </div>
-        </StyledLogIn>
+        </StyledSignIn>
     );
 }
 
-const StyledLogIn = styled.div`
+const StyledSignIn = styled.div`
     background-color: black;
     height: 100vh;
     justify-content: center;
@@ -76,10 +76,11 @@ const StyledLogIn = styled.div`
                 background-color: #2D2D2D;
                 border-radius: 10px;
                 border: none;
+                text-indent: 12px;
+                color: white;
                 ::placeholder{
                     font-family: "Capriola";
                     font-size: 11px;
-                    text-indent: 12px;
                     color: rgba(255, 255, 255, 0.63);
                 }
             }
