@@ -21,12 +21,14 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
   box-sizing: border-box;
-  
+  color: white;
+  width: 100%;
+  text-align: center;
 }
 article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section, div {
+footer, header, hgroup, menu, nav, section, div, button {
 	display: flex;
-  
+  color: white;
 }
 body {
 	line-height: 1;
