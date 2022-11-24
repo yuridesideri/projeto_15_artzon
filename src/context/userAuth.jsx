@@ -4,8 +4,8 @@ import axios from "axios"
 const userDataContext = createContext({});
 
 
-export default function userAuth({children}){
-    const API_URL = process.env.API_URL;
+export default function UserAuth({children}){
+    const API_URL = process.env.REACT_APP_API_URL;
     const token = sessionStorage.getItem('token');
     const [userData, setUserData] = useState({})
 
@@ -18,7 +18,7 @@ export default function userAuth({children}){
             })
         }
 
-    }, [token])
+    }, [])
 
     return (
         <userDataContext.Provider value={userData}>

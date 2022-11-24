@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Logo from "../assets/Artzon Logo.svg"
 
 export default function SignUp(props){
-    const API_URL = process.env.API_URL;
+    const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
 
     function handleSubmit(e) {
@@ -15,7 +15,7 @@ export default function SignUp(props){
             {value : username},
             {value: password},
         ] = e.target;
-        axios.post(API_URL + '/sign-up', {email, username, password})
+        axios.post(REACT_APP_API_URL + '/signup', {email, username, password})
         .then(() => navigate('/signin'))
         .catch(({request}) => {
             console.log(request);
