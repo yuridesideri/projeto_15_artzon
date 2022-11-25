@@ -36,14 +36,14 @@ export default function SignUp(props){
     return (
         <StyledSignUp>
             <div className="middle-container">
-                <img className="title" src={Logo}></img>
+                <img alt="Artzon logo" className="title" src={Logo}></img>
                 <form onSubmit={handleSubmit}>
                     <input placeholder="Type in your email" type="email" />
                     <input placeholder="Type in your username" type="text" />
                     <input placeholder="Type in your password" type="password" />
                     <input placeholder="Confirm your password" type="password" />
                     <button type="Submit">
-                        <img src={ForwardArrow} alt="" />
+                        <img alt="Forward Arrow Button" src={ForwardArrow} />
                     </button>
                 </form>
                 {error && <p className="error">{error}</p>}
