@@ -3,10 +3,13 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import Logo from "../assets/Artzon Logo.svg"
+import { matchPasswords } from "../helpers/helpers.js";
+import { useState } from "react";
 
 export default function SignUp(props){
     const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
+    const [error, setError] = useState(null);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -14,7 +17,14 @@ export default function SignUp(props){
             {value : email},
             {value : username},
             {value: password},
+            {value: confirmPassword}
         ] = e.target;
+
+        if (!matchPasswords(password, confirmPassword)){
+            setError("Passwords don't match");
+            return;
+        }   
+
         axios.post(REACT_APP_API_URL + '/signup', {email, username, password})
         .then(() => navigate('/signin'))
         .catch(({request}) => {
@@ -36,6 +46,7 @@ export default function SignUp(props){
                         <img src={ForwardArrow} alt="" />
                     </button>
                 </form>
+                {error && <p className="error">{error}</p>}
                 <div className="sign-up-call">
                     <p onClick={() => navigate('/signin')} >Or, you can Sign In</p>
                 </div>
@@ -51,6 +62,7 @@ const StyledSignUp = styled.div`
     justify-content: center;
     align-items: center;
     .middle-container {
+        position: relative;
         background-color: #4A4A4A;
         border-radius: 37px;
         width: 355px;
@@ -101,6 +113,14 @@ const StyledSignUp = styled.div`
                     width: 22px;
                 }
             }
+        }
+        .error{
+            font-family: 'Capriola';
+            font-size: 14px;
+            color: #a85a2684;
+            position: absolute;
+            bottom: 15%;
+
         }
         .sign-up-call{
             flex-grow: 1;
