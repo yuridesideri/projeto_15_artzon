@@ -12,9 +12,7 @@ export default function CheckoutPage() {
   const [card, setCard] = useState("");
   const [valueArt, setValueArt] = useState(0);
   const [userCoin, setUserCoin] = useState(0);
-
-
-  let token;
+  const token = 0;
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   function returnPage() {
@@ -36,21 +34,21 @@ export default function CheckoutPage() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
     const userInfos = {
       email: email,
       cartão: card,
       endereço: address,
       coins: counter,
     };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
     axios
-      .post(API_URL + '/checkout' , userInfos,config)
-      .then((res) => setUserCoin(userCoin + parseInt(res.data))   )
+      .post(API_URL + "/checkout", userInfos, token)
+      .then((res) => setUserCoin(userCoin + parseInt(res.data)))
       .catch(({ request }) => {
         console.log(request);
       });
