@@ -7,7 +7,7 @@ export default function HomePage(props){
 
     return (
         <StyledHomePage>
-            <h1>Hello World</h1>
+            <h1 className="">Hello World</h1>
         </StyledHomePage>
     );
 }
