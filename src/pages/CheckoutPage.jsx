@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import rtn from "../assets/return.png";
+import rtn from "../assets/Backward arrow.svg";
 import coin from "../assets/Coin-W.svg";
 import safe from "../assets/Safe Icon.svg";
 import axios from "axios";
@@ -16,7 +16,7 @@ export default function CheckoutPage() {
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   function returnPage() {
-    navigate("/Home");
+    navigate("/");
   }
 
   function addCounter() {
@@ -36,8 +36,6 @@ export default function CheckoutPage() {
     e.preventDefault();
     const userInfos = {
       email: email,
-      cartão: card,
-      endereço: address,
       coins: counter,
     };
     const config = {
@@ -47,7 +45,7 @@ export default function CheckoutPage() {
     };
 
     axios
-      .post(API_URL + "/checkout", userInfos, token)
+      .post(API_URL + "/checkout", userInfos, config)
       .then((res) => setUserCoin(userCoin + parseInt(res.data)))
       .catch(({ request }) => {
         console.log(request);
