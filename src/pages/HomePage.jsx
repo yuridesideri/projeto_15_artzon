@@ -1,14 +1,22 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 import CircleCoins from "../assets/Coin-Circle.svg";
 import Logo from "../assets/Artzon Logo.svg";
 import Hamburguer from "../assets/Hamburguer.svg";
 import UserCircle from "../assets/User Circle.svg";
-import WallpaperCatalog from "../components/WallpaperCatalog.jsx"
-import TestImage from "../assets/wallpapers/Mask group-1.png"
+import WallpaperCatalog from "../components/WallpaperCatalog.jsx";
+import axios from "axios";
 
-export default function HomePage(props){
+export default function HomePage(props) {
+    const API_URL = process.env.REACT_APP_API_URL;
+    const [wallpapers, setWallpapers] = useState([]);
 
-    
+    useEffect(() => {
+        axios
+            .get(API_URL + "/getwallpapers")
+            .then((res) => setWallpapers(res.data))
+            .catch(({ request }) => console.log(request));
+    }, []);
 
     return (
         <StyledHomePage>
@@ -23,7 +31,13 @@ export default function HomePage(props){
                 <input className="h-5" type="text" />
             </section>
             <section>
-                <WallpaperCatalog wallpaperImage={TestImage} price={12}/>
+                {wallpapers.map((wallpaper) => (
+                    <WallpaperCatalog
+                        key={wallpaper._id}
+                        price={wallpaper.wallpaperPrice}
+                        wallpaperImage={API_URL + `/wallpapers/${wallpaper.wallpaperName}`}
+                    />
+                ))}
             </section>
         </StyledHomePage>
     );
@@ -38,4 +52,4 @@ const StyledHomePage = styled.div`
     h1 {
         color: black;
     }
-`
+`;

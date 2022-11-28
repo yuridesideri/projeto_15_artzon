@@ -7,7 +7,7 @@ import { matchPasswords } from "../helpers/helpers.js";
 import { useState } from "react";
 
 export default function SignUp(props){
-    const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+    const API_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
     const [error, setError] = useState(null);
 
@@ -25,7 +25,7 @@ export default function SignUp(props){
             return;
         }   
 
-        axios.post(REACT_APP_API_URL + '/signup', {email, username, password})
+        axios.post(API_URL + '/signup', {email, username, password})
         .then(() => navigate('/signin'))
         .catch(({request}) => {
             console.log(request);
