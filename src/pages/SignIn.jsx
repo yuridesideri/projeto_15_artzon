@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import Logo from "../assets/Artzon Logo.svg"
+import { useUserData } from "../context/userAuth";
 
 export default function SignIn(props){
     const API_URL = process.env.REACT_APP_API_URL;
@@ -15,8 +16,8 @@ export default function SignIn(props){
             {value : password}
         ] = e.target;
         axios.post(API_URL + '/signin', {email, password})
-        .then(({data: token}) => {
-            sessionStorage.setItem('token', token);
+        .then(({data}) => {
+            sessionStorage.setItem('token', data.token);
             navigate('/');
         })
         .catch(({request}) => {

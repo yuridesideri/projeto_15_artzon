@@ -5,23 +5,13 @@ const userDataContext = createContext({});
 
 
 export default function UserAuth({children}){
-    const API_URL = process.env.REACT_APP_API_URL;
-    const token = sessionStorage.getItem('token');
-    const [userData, setUserData] = useState({})
+    const [userData, setUserData] = useState({});
 
-    useEffect(() => {
-        if (token){
-            axios.get(API_URL + 'userdata', {headers: {authentication: `Bearer ${token}`}})
-            .then(({data: userData}) => setUserData(userData))
-            .catch(({request}) => {
-                console.log(request);
-            })
-        }
-    // eslint-disable-next-line
-    }, [])
+
+    console.log(userData);
 
     return (
-        <userDataContext.Provider value={userData}>
+        <userDataContext.Provider value={[userData, setUserData]}>
             {children}
         </userDataContext.Provider>
     )

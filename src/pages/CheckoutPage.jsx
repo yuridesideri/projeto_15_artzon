@@ -5,14 +5,17 @@ import rtn from "../assets/Backward arrow.svg";
 import coin from "../assets/Coin-W.svg";
 import safe from "../assets/Safe Icon.svg";
 import axios from "axios";
+import { useUserData } from "../context/userAuth";
+
 export default function CheckoutPage() {
   const [counter, setCounter] = useState(0);
   const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [card, setCard] = useState("");
   const [valueArt, setValueArt] = useState(0);
   const [userCoin, setUserCoin] = useState(0);
-  const token = 0;
+  const [userData] = useUserData()
+
+
+  const {token} = userData;
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   function returnPage() {
@@ -36,17 +39,17 @@ export default function CheckoutPage() {
     e.preventDefault();
     const userInfos = {
       email: email,
-      coins: counter,
+      artcoins: counter,
     };
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        authentication: `Bearer ${token}`,
       },
     };
 
     axios
       .post(API_URL + "/checkout", userInfos, config)
-      .then((res) => setUserCoin(userCoin + parseInt(res.data)))
+      .then((res) => navigate('/'))
       .catch(({ request }) => {
         console.log(request);
       });
@@ -58,7 +61,7 @@ export default function CheckoutPage() {
         <Return src={rtn} onClick={returnPage} />
         <UserInfos>
           <h1>
-            You own {userCoin} <img src={coin} alt="Coin" />
+            You own {userData.artcoins !== undefined ? userData.artcoins : "Log In"} <img src={coin} alt="Coin" />
           </h1>
 
           <input
@@ -77,13 +80,13 @@ export default function CheckoutPage() {
 
           <input
             type="text"
+            required
             placeholder="Type in your address"
-            onChange={(e) => setAddress(e.target.value)}
           />
           <input
+            required
             type="number"
             placeholder="Type in your credit card"
-            onChange={(e) => setCard(e.target.value)}
           />
         </UserInfos>
         <Checkout>
